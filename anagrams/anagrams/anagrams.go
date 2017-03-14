@@ -2,9 +2,9 @@ package anagrams
 
 import (
 	"sort"
-	"unicode/utf8"
 	"strings"
 	"unicode"
+	"unicode/utf8"
 )
 
 type ByRune []rune
@@ -24,7 +24,7 @@ func stripSpaces(str string) string {
 	}, str)
 }
 
-func runesFromString(s string)[]rune{
+func runesFromString(s string) []rune {
 	n := utf8.RuneCountInString(s)
 	runes := make([]rune, n)
 
@@ -38,9 +38,9 @@ func runesFromString(s string)[]rune{
 
 func IsAnagram(first, second string) bool {
 	runes1 := runesFromString(stripSpaces(first))
-	runes2 := runesFromString(stripSpaces(second))
+	runes2 := []rune(stripSpaces(second))
 
-	if len(runes1) != len(runes2){
+	if len(runes1) != len(runes2) {
 		return false
 	}
 

@@ -1,10 +1,10 @@
 package main
 
 import (
-	"anagrams"
 	"fmt"
+	"github.com/alexey-malov/go_projects/anagrams/anagrams"
 )
 
 func main() {
-	fmt.Println(IsAnagram("ab", "ba"))
+	fmt.Println(anagrams.IsAnagram("ab", "ba"))
 }
