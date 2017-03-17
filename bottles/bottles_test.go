@@ -2,6 +2,24 @@ package main
 
 import "testing"
 
+func TestJoinStrings(t *testing.T) {
+	testCases := []struct {
+		x, y, expected string
+	}{
+		{"", "", ""},
+		{"x", "", "x"},
+		{"", "y", "y"},
+		{"x", "y", "x y"},
+	}
+
+	for _, c := range testCases {
+		got := joinStrings(c.x, c.y)
+		if got != c.expected {
+			t.Errorf("Expected joinStrings('%s', '%s')==%s, but got '%s'", c.x, c.y, c.expected, got)
+		}
+	}
+}
+
 func TestNumericToString(t *testing.T) {
 	cases := []struct {
 		n uint

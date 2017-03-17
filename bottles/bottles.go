@@ -6,6 +6,69 @@ import (
 	"unicode/utf8"
 )
 
+var units0to19 = [20]string{
+"ноль", "одна", "две", "три", "четыре",
+"пять", "шесть", "семь", "восемь", "девять",
+"десять", "одиннадцать", "двенадцать", "тринадцать", "четырнадцать",
+"пятнадцать", "шестнадцать", "семнадцать", "восемнадцать", "девятнадцать",
+}
+
+var tens20to90 = [8]string{
+"двадцать", "тридцать", "сорок", "пятьдесят", "шестьдесят", "семьдесят", "восемьдесят", "девяносто",
+}
+
+var hundreds0to900 = [10]string{
+	"", "сто", "двести", "триста", "четыреста", "пятьсот", "шестьсот", "семьсот", "восемьсот", "девятьсот",
+}
+
+func n2s99(i uint) string {
+	if i > 99 {
+		panic(fmt.Sprintf("Argument %d is out of range:[0..99]", i))
+	}
+
+	if i < 20 {
+		return units0to19[i]
+	}
+
+	units := i % 10
+	unitsStr := units0to19[units]
+	if units == 0 {
+		unitsStr = ""
+	}
+
+	return joinStrings(tens20to90[i / 10 - 2], unitsStr)
+}
+
+
+func n2s999(i uint) string {
+	if i > 999 {
+		panic(fmt.Sprintf("Argument %d is out of range:[0..999]", i))
+	}
+
+	units := i % 100
+
+	unitsStr := n2s99(i % 100)
+	hundredsStr := hundreds0to900[i / 100]
+
+	if hundredsStr == "" {
+		return unitsStr
+	}
+	if units == 0 {
+		unitsStr = ""
+	}
+
+	return joinStrings(hundredsStr, unitsStr)
+}
+
+func numericToString(i uint) string {
+	return n2s999(i)
+}
+
+func toTitleCase(s string) string {
+	r, i := utf8.DecodeRuneInString(s)
+	return string(unicode.ToUpper(r)) + s[i:]
+}
+
 func fmtBottles(i uint) string {
 	if i == 0 {
 		return "бутылок"
@@ -20,78 +83,14 @@ func fmtBottles(i uint) string {
 	}
 }
 
-func n2s99(i uint) string {
-	if i > 99 {
-		panic(fmt.Sprintf("Argument %d is out of range:[0..99]", i))
-	}
-	units0to19 := [20]string{
-		"ноль", "одна", "две", "три", "четыре",
-		"пять", "шесть", "семь", "восемь", "девять",
-		"десять", "одиннадцать", "двенадцать", "тринадцать", "четырнадцать",
-		"пятнадцать", "шестнадцать", "семнадцать", "восемнадцать", "девятнадцать",
-	}
-
-	if i < 20 {
-		return units0to19[i]
-	}
-
-	tens20to90 := [8]string{
-		"двадцать", "тридцать", "сорок", "пятьдесят", "шестьдесят", "семьдесят", "восемьдесят", "девяносто",
-	}
-	tens := (i / 10)
-
-	tensStr := tens20to90[tens-2]
-
-	units := i % 10
-	unitsStr := units0to19[units]
-	if units == 0 {
-		unitsStr = ""
-	}
-
-	result := tensStr
-	if unitsStr != "" {
-		result = fmt.Sprintf("%s %s", tensStr, unitsStr)
-	}
-
-	return result
-}
-
-var hundreds0to900 = [10]string{
-	"", "сто", "двести", "триста", "четыреста", "пятьсот", "шестьсот", "семьсот", "восемьсот", "девятьсот",
-}
-
-func n2s999(i uint) string {
-	if i > 999 {
-		panic(fmt.Sprintf("Argument %d is out of range:[0..999]", i))
-	}
-
-	hundreds := i / 100
-
-	result := ""
-	if units := i % 100; hundreds == 0 || units != 0 {
-		result = n2s99(units)
-	}
-
-	hundredsStr := hundreds0to900[hundreds]
-
-	if hundredsStr != "" {
-		if result != "" {
-			result = fmt.Sprintf("%s %s", hundredsStr, result)
-		} else {
-			result = hundredsStr
+func joinStrings(s1, s2 string) string {
+	if s1 != "" {
+		if s2 != "" {
+			return s1 + " " + s2
 		}
+		return s1
 	}
-
-	return result
-}
-
-func numericToString(i uint) string {
-	return n2s999(i)
-}
-
-func toTitleCase(s string) string {
-	r, i := utf8.DecodeRuneInString(s)
-	return string(unicode.ToUpper(r)) + s[i:]
+	return s2
 }
 
 func main() {
