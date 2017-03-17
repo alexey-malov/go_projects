@@ -1,6 +1,7 @@
 package anagrams
 
 import (
+	"reflect"
 	"sort"
 	"strings"
 	"unicode"
@@ -53,4 +54,30 @@ func IsAnagram(first, second string) bool {
 		}
 	}
 	return true
+}
+
+/*
+
+ */
+
+func buildRuneFreq(runes []rune) map[rune]int {
+	freqs := make(map[rune]int)
+	for _, r := range runes {
+		freqs[r]++
+	}
+	return freqs
+}
+
+func IsAnagram2(first, second string) bool {
+	runes1 := runesFromString(stripSpaces(first))
+	runes2 := []rune(stripSpaces(second))
+
+	if len(runes1) != len(runes2) {
+		return false
+	}
+
+	freqMap1 := buildRuneFreq(runes1)
+	freqMap2 := buildRuneFreq(runes2)
+
+	return reflect.DeepEqual(freqMap1, freqMap2)
 }
