@@ -6,17 +6,24 @@ import (
 	"github.com/alexey-malov/go_projects/anagrams/anagrams"
 	"log"
 	"os"
-	"strings"
 )
+
+func readLn(r *bufio.Reader) (string, error) {
+	var (isPrefix bool = true
+		err error = nil
+		line, ln []byte
+	)
+	for isPrefix && err == nil {
+		line, isPrefix, err = r.ReadLine()
+		ln = append(ln, line...)
+	}
+	return string(ln),err
+}
 
 func readTwoStrings(reader *bufio.Reader) (string, string, error) {
 	readString := func(prompt string) (string, error) {
 		fmt.Print(prompt)
-		str, err := reader.ReadString('\n')
-		if err != nil {
-			return "", err
-		}
-		return strings.Replace(str, "\n", "", -1), nil
+		return readLn(reader)
 	}
 
 	s1, err := readString("Enter the first string: ")

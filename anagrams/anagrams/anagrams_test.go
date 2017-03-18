@@ -29,6 +29,7 @@ func TestIsAnagram(t *testing.T) {
 		{"апельсин", "спаниель", true},
 		{"внимание", "вениамин", true},
 	}
+
 	for _, c := range cases {
 		got := IsAnagram(c.first, c.second)
 		if got != c.isAnagram {

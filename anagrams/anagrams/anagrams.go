@@ -56,10 +56,6 @@ func IsAnagram(first, second string) bool {
 	return true
 }
 
-/*
-
- */
-
 func buildRuneFreq(runes []rune) map[rune]int {
 	freqs := make(map[rune]int)
 	for _, r := range runes {
