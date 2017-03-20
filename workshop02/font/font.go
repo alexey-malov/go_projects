@@ -2,7 +2,15 @@ package font
 
 import "fmt"
 
-type Font struct {
+type Font interface {
+	fmt.Stringer
+	Family() string
+	Size() int
+	SetFamily(family string)
+	SetSize(size int)
+}
+
+type font struct {
 	family string
 	size   int
 }
@@ -19,30 +27,30 @@ func clampSize(size int) int {
 	return size
 }
 
-func New(family string, size int) *Font {
+func New(family string, size int) Font {
 	if family == "" {
 		family = "Arial"
 	}
-	return &Font{family, clampSize(size)}
+	return &font{family, clampSize(size)}
 }
 
-func (f *Font) Family() string {
+func (f *font) Family() string {
 	return f.family
 }
 
-func (f *Font) Size() int {
+func (f *font) Size() int {
 	return f.size
 }
 
-func (f *Font) String() string {
+func (f *font) String() string {
 	return fmt.Sprintf(`{font-family: "%s"; font-size: %dpt;}`, f.family, f.size)
 }
 
-func (f *Font) SetSize(size int) {
+func (f *font) SetSize(size int) {
 	f.size = clampSize(size)
 }
 
-func (f *Font) SetFamily(family string) {
+func (f *font) SetFamily(family string) {
 	if family != "" {
 		f.family = family
 	}

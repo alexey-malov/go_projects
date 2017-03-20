@@ -64,7 +64,7 @@ func expectFontConstruction(family, expectedFamily string, size, expectedSize in
 	}
 }
 
-func f1(bodyFont, titleFont *font.Font, t *testing.T) {
+func f1(bodyFont, titleFont font.Font, t *testing.T) {
 	if bodyFont.String() !=
 		`{font-family: "Nimbus Sans"; font-size: 10pt;}` {
 		t.Fatal("#1 bodyFont invalid CSS")
@@ -100,7 +100,7 @@ func f1(bodyFont, titleFont *font.Font, t *testing.T) {
 	f2(bodyFont, titleFont)
 }
 
-func f2(bodyFont, titleFont *font.Font) {
+func f2(bodyFont, titleFont font.Font) {
 	fmt.Println(bodyFont)
 	fmt.Println(titleFont)
 }
