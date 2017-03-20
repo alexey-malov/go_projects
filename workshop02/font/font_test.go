@@ -9,8 +9,9 @@ import (
 func TestFontConstruction(t *testing.T) {
 	expectSuccessfulConstruction("f", 5, t)
 	expectSuccessfulConstruction("f", 144, t)
-	expectFontConstruction("fnt", 4, 5, t)
-	expectFontConstruction("fnt", 145, 144, t)
+	expectFontConstruction("fnt", "fnt", 4, 5, t)
+	expectFontConstruction("fnt", "fnt", 145, 144, t)
+	expectFontConstruction("", "Arial", 10, 10, t)
 }
 
 func TestFont(t *testing.T) {
@@ -44,15 +45,15 @@ func TestFont_SetSize(t *testing.T) {
 }
 
 func expectSuccessfulConstruction(family string, size int, t *testing.T) {
-	expectFontConstruction(family, size, size, t)
+	expectFontConstruction(family, family, size, size, t)
 }
 
-func expectFontConstruction(family string, size, expectedSize int, t *testing.T) {
+func expectFontConstruction(family, expectedFamily string, size, expectedSize int, t *testing.T) {
 	fnt := font.New(family, size)
 
 	gotFamily := fnt.Family()
-	if fnt.Family() != family {
-		t.Errorf("Expected font.Family() to be equal to '%s' but got '%s'", family, gotFamily)
+	if fnt.Family() != expectedFamily {
+		t.Errorf("Expected font.Family() to be equal to '%s' but got '%s'", expectedFamily, gotFamily)
 		return
 	}
 

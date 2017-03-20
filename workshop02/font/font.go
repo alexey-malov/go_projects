@@ -21,7 +21,7 @@ func clampSize(size int) int {
 
 func New(family string, size int)*Font {
 	if family == "" {
-		panic("Invalid family name")
+		family = "Arial"
 	}
 	return &Font{family, clampSize(size)}
 }
