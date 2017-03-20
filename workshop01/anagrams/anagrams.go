@@ -3,7 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"github.com/alexey-malov/go_projects/anagrams/anagrams"
+	"github.com/alexey-malov/go_projects/workshop01/anagrams/anagrams"
 	"log"
 	"os"
 )
