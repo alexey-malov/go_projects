@@ -4,7 +4,7 @@ import "fmt"
 
 type Font struct {
 	family string
-	size int
+	size   int
 }
 
 const MIN_SIZE = 5
@@ -19,7 +19,7 @@ func clampSize(size int) int {
 	return size
 }
 
-func New(family string, size int)*Font {
+func New(family string, size int) *Font {
 	if family == "" {
 		family = "Arial"
 	}
