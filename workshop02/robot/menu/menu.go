@@ -93,8 +93,8 @@ func NewMenu() *Menu {
 
 	m.addItemInternal("help", "Show instructions", m.ShowInstructions, false)
 	m.addItemInternal("exit", "Exit from this menu", m.Exit, false)
-	m.addItemInternal("begin_macro", "Begins a new macro command", m.BeginMacro, false)
-	m.addItemInternal("end_macro", "Begins a new macro command", m.EndMacro, false)
+	m.addItemInternal("begin_macro", "Records a new macro command", m.BeginMacro, false)
+	m.addItemInternal("end_macro", "Stops recording a macro command", m.EndMacro, false)
 
 	return m
 }
