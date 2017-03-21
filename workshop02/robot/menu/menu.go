@@ -9,22 +9,22 @@ import (
 )
 
 type Menu struct {
-	exit  bool
-	items map[string]Item
+	exit         bool
+	items        map[string]Item
 	currentMacro *macro
 }
 
 type macro struct {
-	shortcut string
+	shortcut    string
 	description string
-	commands       []command.Command
+	commands    []command.Command
 }
 
 type Item struct {
 	shortcut    string
 	description string
 	command     command.Command
-	composable bool
+	composable  bool
 }
 
 func (m *Menu) AddItem(shortcut, description string, command command.Command) {
@@ -70,7 +70,7 @@ func (m *Menu) executeCommand(word string) bool {
 		fmt.Println("Unknown command")
 	} else {
 		cm := m.currentMacro
-		if cm != nil && item.composable{
+		if cm != nil && item.composable {
 			cm.commands = append(cm.commands, item.command)
 			fmt.Printf("Action '%s' was recorded\n", word)
 		} else {
@@ -150,15 +150,15 @@ func (m *Menu) EndMacro() {
 	m.ShowInstructions()
 }
 
-
 func readLn(r *bufio.Reader) (string, error) {
-	var (isPrefix bool = true
-		err error = nil
+	var (
+		isPrefix bool  = true
+		err      error = nil
 		line, ln []byte
 	)
 	for isPrefix && err == nil {
 		line, isPrefix, err = r.ReadLine()
 		ln = append(ln, line...)
 	}
-	return string(ln),err
+	return string(ln), err
 }
