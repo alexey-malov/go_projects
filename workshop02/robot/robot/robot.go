@@ -46,7 +46,7 @@ func (r *Robot) Walk(direction int64) {
 		directions[DOWN] = "down"
 		directions[LEFT] = "left"
 		directions[RIGHT] = "right"
-		fmt.Printf("Walking %v\n", directions[direction])
+		fmt.Fprintf(r.output, "Walking %v\n", directions[direction])
 	} else {
 		fmt.Fprintln(r.output, "The robot should be turned on first")
 	}
@@ -69,9 +69,9 @@ func (r *Robot) Stop() {
 	if r.turnedOn {
 		if r.direction != NO_DIRECTION {
 			r.direction = NO_DIRECTION
-			fmt.Printf("Stopped\n")
+			fmt.Fprintf(r.output, "Stopped\n")
 		} else {
-			fmt.Printf("I am staying still\n")
+			fmt.Fprintf(r.output, "I am staying still\n")
 		}
 	} else {
 		fmt.Fprintln(r.output, "The robot should be turned on first")
