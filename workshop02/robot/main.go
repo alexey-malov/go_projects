@@ -12,7 +12,7 @@ import (
 func main() {
 	r := robot.NewRobot()
 	//robot.Stop()
-	m := menu.NewMenu()
+	m := menu.NewMenu(bufio.NewReader(os.Stdin), bufio.NewWriter(os.Stdout))
 
 	m.AddItem("on", "Turns the Robot on", r.TurnOn)
 	m.AddItem("off", "Turns the Robot off", r.TurnOff)
@@ -32,7 +32,7 @@ func main() {
 	m.AddItem("stop", "Stops the Robot", r.Stop)
 
 	m.ShowInstructions()
-	m.Run(bufio.NewReader(os.Stdin))
+	m.Run()
 }
 
 func bindWalk(r *robot.Robot, dir int64) func() {
@@ -57,11 +57,12 @@ func directionToString(dir int64) string {
 }
 
 func printRobotInfo(r *robot.Robot) {
+	defer r.Output().Flush()
 	if r.IsOn() {
-		fmt.Println("Turned on")
-		fmt.Println("Walk direction: ", directionToString(r.Direction()))
+		fmt.Fprintln(r.Output(), "Turned on")
+		fmt.Fprintln(r.Output(), "Walk direction: ", directionToString(r.Direction()))
 
 	} else {
-		fmt.Println("Turned off")
+		fmt.Fprintln(r.Output(), "Turned off")
 	}
 }
