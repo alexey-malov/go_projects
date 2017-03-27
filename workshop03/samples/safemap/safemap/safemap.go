@@ -3,7 +3,7 @@ package safemap
 type SafeMap interface {
 	Insert(string, interface{})
 	Delete(string)
-	Find(string) interface{}
+	Find(string) (interface{}, bool)
 	Len() int
 	Update(string, UpdateFunc)
 	Close() map[string]interface{}
@@ -96,8 +96,9 @@ func (sm safeMap) run() {
 				value, found := data[command.key]
 				data[command.key] = command.updater(value, found)
 			case end:
+				command.data <- data
 				close(sm)
-
+				return
 			}
 		}
 	}()
