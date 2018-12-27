@@ -6,7 +6,7 @@ type Vertex struct {
 	X, Y float64
 }
 
-func (v *Vertex) Scale (s float64) {
+func (v *Vertex) Scale(s float64) {
 	v.X *= s
 	v.Y *= s
 }
@@ -19,8 +19,8 @@ type Vertex3D struct {
 func (v *Vertex3D) Scale(s float64) {
 	v.Vertex.Scale(s)
 	/*
-	v.X *= s
-	v.Y *= s
+		v.X *= s
+		v.Y *= s
 	*/
 	v.Z *= s
 }

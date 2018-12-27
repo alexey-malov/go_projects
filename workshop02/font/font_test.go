@@ -1,9 +1,9 @@
 package font_test
 
 import (
-	"testing"
 	"fmt"
 	"github.com/alexey-malov/go_projects/workshop02/font"
+	"testing"
 )
 
 func TestFontConstruction(t *testing.T) {

@@ -2,7 +2,6 @@ package main
 
 import "fmt"
 
-
 type IDuck interface {
 	Quack()
 	Fly()
@@ -14,7 +13,7 @@ type FlyBehavior interface {
 type QuackBehavior func()
 
 type Duck struct {
-	fly FlyBehavior
+	fly   FlyBehavior
 	quack QuackBehavior
 }
 type MallardDuck struct {
@@ -24,28 +23,30 @@ type RubberDuck struct {
 	Duck
 }
 
-func Quack(){
+func Quack() {
 	fmt.Println("Quack")
 }
 
-func Squeak(){
+func Squeak() {
 	fmt.Println("Squeak")
 }
 
-
-func NewRubberDuck() *RubberDuck{
+func NewRubberDuck() *RubberDuck {
 	return &RubberDuck{Duck{FlyNoWay{}, Squeak}}
 }
 
-func NewMallardDuck() *MallardDuck{
+func NewMallardDuck() *MallardDuck {
 	return &MallardDuck{Duck{FlyWithWings{}, Quack}}
 }
 
 type FlyNoWay struct{}
+
 func (FlyNoWay) Fly() {
 	fmt.Println("I can't fly")
 }
+
 type FlyWithWings struct{}
+
 func (FlyWithWings) Fly() {
 	fmt.Println("Yahooo, I am flying")
 }
@@ -68,21 +69,17 @@ func (RubberDuck) Quack() {
 	fmt.Println("Squeak")
 }
 
-
 func playWithDuck(d IDuck) {
 	fmt.Printf("%T\n", d)
 	d.Quack()
 	d.Fly()
 }
 
-
-func main(){
+func main() {
 
 	rd := NewRubberDuck()
 	md := NewMallardDuck()
 
-
 	playWithDuck(md)
 	playWithDuck(rd)
 }
-

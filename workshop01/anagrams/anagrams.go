@@ -9,15 +9,16 @@ import (
 )
 
 func readLn(r *bufio.Reader) (string, error) {
-	var (isPrefix bool = true
-		err error = nil
+	var (
+		isPrefix bool  = true
+		err      error = nil
 		line, ln []byte
 	)
 	for isPrefix && err == nil {
 		line, isPrefix, err = r.ReadLine()
 		ln = append(ln, line...)
 	}
-	return string(ln),err
+	return string(ln), err
 }
 
 func readTwoStrings(reader *bufio.Reader) (string, string, error) {
